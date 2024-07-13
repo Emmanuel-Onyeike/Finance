@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Page</title>
+    <link rel="stylesheet" href="nextpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <i class="fa-solid fa-coins gold-icon"></i>
+            <h1>Z-PAYEE</h1>
+        </div>
+    </header>
+    
+    <div class="spacer"></div>
+
+    <div class="container">
+        <div class="image-container">
+            <img src="img (1).jpeg" alt="Trust in the highest standards of security with Z-PAYEE." class="slide">
+            <img src="img (2).jpeg" alt=" Experience the convenience and security of online banking with Z-PAYEE." class="slide">
+            <img src="img (3).jpeg" alt="Embrace the ease and reliability of the conform "class="slide">
+        </div>
+        <div class="input-container">
+            <input type="text" id="textInput" placeholder="Type your text...">
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="button-container">
+        <a href="page.html" class="button">Next Page</a>
+    </div>
+
+    <script>
+      
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const textInput = document.getElementById('textInput');
+        const imageCount = slides.length;
+
+     
+        function showSlide() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.style.display = 'block';
+                    textInput.value = slide.getAttribute('alt');
+                } else {
+                    slide.style.display = 'none';
+                }
+            });
+            currentSlide = (currentSlide + 1) % imageCount;
+            setTimeout(showSlide, 7000); 
+        }
+
+       
+        showSlide();
+    </script>
+</body>
+</html>

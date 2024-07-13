@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+
+    <div class="balance-container">
+        <h2>Balance</h2>
+        <span id="userBalance" class="balance"></span>
+    </div>
+
+    <div class="transaction-history-container">
+        <h2>Transaction History</h2>
+        <div class="transaction-list">
+            <!-- Transaction history will be populated here -->
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="get-pin.html" class="button">Get PIN</a>
+        <a href="#" class="button logout-button">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+        <a href="dashboard.html" class="button"> Dashboard</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var userBalanceElement = document.getElementById('userBalance');
+            var transactionList = document.querySelector('.transaction-list');
+
+            // Get stored user data
+            var savedBalance = localStorage.getItem('balance');
+            var transactions = [
+                { type: 'credit', amount: 200, date: '2024-07-11', description: 'Salary' },
+                { type: 'debit', amount: 502, date: '2024-07-10', description: 'Grocery' },
+                { type: 'credit', amount: 200, date: '2024-07-09', description: 'Loan' },
+                { type: 'debit', amount: 758, date: '2024-07-08', description: 'Inverter' },
+                { type: 'credit', amount: 1000, date: '2024-07-11', description: 'Salary' },
+                { type: 'debit', amount: 508, date: '2024-07-10', description: 'Sent' },
+                { type: 'credit', amount: 200, date: '2024-07-09', description: 'Freelance Work' },
+                { type: 'debit', amount: 705, date: '2024-07-08', description: 'Utility Bill' },
+                { type: 'credit', amount: 100, date: '2024-07-11', description: 'Salary' },
+                { type: 'debit', amount: 5000, date: '2024-07-10', description: 'Trade' },
+                { type: 'credit', amount: 2005, date: '2024-07-09', description: 'Work' },
+                { type: 'debit', amount: 750, date: '2024-07-08', description: 'Light Bill' },
+            ];
+
+            // Set user balance
+            userBalanceElement.textContent = savedBalance || '0';
+
+            // Populate transaction history
+            transactions.forEach(function(transaction) {
+                var transactionItem = document.createElement('div');
+                transactionItem.classList.add('transaction-item', transaction.type);
+                transactionItem.innerHTML = `
+                    <span class="transaction-date">${transaction.date}</span>
+                    <span class="transaction-description">${transaction.description}</span>
+                    <span class="transaction-amount">${transaction.type === 'credit' ? '+' : '-'}$${transaction.amount}</span>
+                `;
+                transactionList.appendChild(transactionItem);
+            });
+        });
+    </script>
+</body>
+</html>

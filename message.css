@@ -1,0 +1,93 @@
+body {
+    background-color: #e9ecef;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h1 {
+    color: #343a40;
+    font-size: 3.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.news-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.update {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.update:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.update:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 12px;
+    height: 12px;
+    background-color: #28a745;
+    border-radius: 50%;
+}
+
+.update h3 {
+    margin: 0;
+    font-size: 1.7em;
+    color: #495057;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.update p {
+    font-size: 1.1em;
+    color: #212529;
+    line-height: 1.5;
+}
+
+.update time {
+    display: block;
+    font-size: 0.95em;
+    color: #6c757d;
+    margin-top: 15px;
+    text-align: right;
+    font-style: italic;
+}
+
+.update:hover h3 {
+    color: #28a745;
+    transition: color 0.3s;
+}
+
+
+.news-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

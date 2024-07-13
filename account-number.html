@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Account Number</title>
+    <link rel="stylesheet" href="account-number.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Get Account Number</h1>
+    </header>
+
+    <div class="form-container">
+        <form id="accountForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <button type="submit">Get Account Number</button>
+        </form>
+    </div>
+
+    <div class="overlay" id="loadingOverlay">
+        <div class="loading-container">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+    </div>
+
+    <div class="overlay" id="successOverlay">
+        <div class="success-container">
+            <i class="fas fa-check-circle"></i>
+        </div>
+    </div>
+
+    <script>
+      document.getElementById('accountForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+
+    if (name && phone) {
+        document.getElementById('loadingOverlay').style.display = 'flex';
+
+        setTimeout(() => {
+            document.getElementById('loadingOverlay').style.display = 'none';
+            document.getElementById('successOverlay').style.display = 'flex';
+
+            setTimeout(() => {
+                document.getElementById('successOverlay').style.display = 'none';
+                const accountNumber = Array.from({ length: 11 }, () => Math.floor(Math.random() * 10)).join('');
+
+                // Send SMS via server
+                fetch('http://localhost:3000/send-sms', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        phone: phone,
+                        message: `Your new account number on Z-payee is ${accountNumber}`
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Your account number has been sent via SMS!');
+                        localStorage.setItem('accountNumber', accountNumber);
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        alert('Error sending SMS: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    alert('Error: ' + error.message);
+                });
+            }, 2000);
+        }, 2000);
+    } else {
+        alert('Please enter your name and phone number.');
+    }
+});
+
+    </script>
+</body>
+</html>

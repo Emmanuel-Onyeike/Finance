@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="profile-pic-container">
+                <i id="profileIcon" class="fas fa-user"></i>
+                <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+                <img id="profilePicDisplay" src="" alt="Profile Picture" style="display: none;">
+            </div>
+            <div class="user-info">
+                <span class="greeting">Hi, <span id="username">User</span></span>
+                <p class="write-up">Welcome, Transact with us!</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <a href="#" id="qrcodeIcon">
+                <i class="fas fa-qrcode"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="atm-card-container">
+        <i class="fas fa-credit-card"></i>
+        <span class="atm-card-text">
+            <i class="fas fa-coins"></i> Z-payee
+        </span>
+    </div>
+
+    <div class="balance-container">
+        <i class="fas fa-dollar-sign"></i>
+        <span>0.00</span>
+    </div>
+
+    <div class="icons-container">
+        <a href="top-up.html" class="icon-link">
+            <i class="fas fa-wallet"></i>
+            <p>Top Up</p>
+        </a>
+        <a href="transfer.html" class="icon-link">
+            <i class="fas fa-exchange-alt"></i>
+            <p>Transfer</p>
+        </a>
+        <a href="trade.html" class="icon-link">
+            <i class="fas fa-chart-line"></i>
+            <p>Trade</p>
+        </a>
+    </div>
+
+    <div class="transaction-history-container">
+        <h2>Transaction History</h2>
+        <div class="transaction-list">
+            <!-- Transactions will be dynamically generated -->
+        </div>
+    </div>
+
+    <div class="grid-icons-container">
+        <a href="gift-card.html" class="grid-icon-link">
+            <i class="fas fa-gift"></i>
+            <p>Gift Card</p>
+        </a>
+        <a href="rewards.html" class="grid-icon-link">
+            <i class="fas fa-trophy"></i>
+            <p>Rewards</p>
+        </a>
+        <a href="convert.html" class="grid-icon-link">
+            <i class="fas fa-sync-alt"></i>
+            <p>Convert</p>
+        </a>
+        <a href="safe-box.html" class="grid-icon-link">
+            <i class="fas fa-box"></i>
+            <p>Safe Box</p>
+        </a>
+        <a href="loan.html" class="grid-icon-link">
+            <i class="fas fa-hand-holding-usd"></i>
+            <p>Loan</p>
+        </a>
+        <a href="statistics.html" class="grid-icon-link">
+            <i class="fas fa-chart-pie"></i>
+            <p>Statistics</p>
+        </a>
+    </div>
+
+    <div class="video-container">
+        <video id="dashboardVideo" autoplay loop muted>
+            <source src="vid.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="extra-icons-container">
+        <a href="notifications.html" class="extra-icon-link">
+            <i class="fas fa-bell"></i>
+            <p>Info</p>
+        </a>
+        <a href="withdraw.html" class="extra-icon-link">
+            <i class="fas fa-money-bill-wave"></i>
+            <p>Withdraw</p>
+        </a>
+        <a href="atm.html" class="extra-icon-link">
+            <i class="fas fa-university"></i>
+            <p>ATM</p>
+        </a>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <i class="fas fa-qrcode"></i>
+            <p>This is the QR code modal.</p>
+        </div>
+    </div>
+
+    <div class="container-9">
+        <div class="footer">
+            <a href="dashboard.html" class="footer-icon-link">
+                <i class="fas fa-home"></i>
+            </a>
+            
+            <a href="#" class="footer-icon-link circle-icon" id="toggle-container">
+                <i class="fas fa-arrow-up" id="icon"></i>
+            </a>
+            
+            <a href="user.html" class="footer-icon-link" id="profileIconFooter">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
+        <div class="sliding-container" id="sliding-container">
+            <button class="sliding-button" id="button1">Button 1</button>
+            <button class="sliding-button" id="button2">Button 2</button>
+            <button class="sliding-button" id="button3">Button 3</button>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var userNameElement = document.getElementById('username');
+            var profileIcon = document.getElementById('profileIcon');
+            var profilePicInput = document.getElementById('profilePicInput');
+            var profilePicDisplay = document.getElementById('profilePicDisplay');
+
+     
+            var savedProfilePic = localStorage.getItem('profilePic');
+            if (savedProfilePic) {
+                profileIcon.style.display = 'none';
+                profilePicDisplay.style.display = 'block';
+                profilePicDisplay.src = savedProfilePic;
+            }
+
+            var savedUsername = localStorage.getItem('username');
+            if (savedUsername) {
+                userNameElement.textContent = savedUsername;
+            }
+
+     
+            profileIcon.addEventListener('click', function() {
+                profilePicInput.click();
+            });
+
+            profilePicInput.addEventListener('change', function(event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        profileIcon.style.display = 'none';
+                        profilePicDisplay.style.display = 'block';
+                        profilePicDisplay.src = e.target.result;
+                        localStorage.setItem('profilePic', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+       
+        var qrcodeIcon = document.getElementById('qrcodeIcon');
+        var modal = document.getElementById('modal');
+        var closeModal = document.getElementById('closeModal');
+
+        qrcodeIcon.addEventListener('click', function(event) {
+            event.preventDefault();
+            modal.style.right = '0';
+        });
+
+        closeModal.addEventListener('click', function() {
+            modal.style.right = '-100%';
+        });
+
+      
+        var transactionList = document.querySelector('.transaction-list');
+        var transactions = [
+            { type: 'credit', amount: 200, date: '2024-07-11', description: 'Salary' },
+            { type: 'debit', amount: 502, date: '2024-07-10', description: 'Grocery' },
+            { type: 'credit', amount: 200, date: '2024-07-09', description: 'Loan' },
+            { type: 'debit', amount: 758, date: '2024-07-08', description: 'Inverter' },
+            { type: 'credit', amount: 1000, date: '2024-07-11', description: 'Salary' },
+            { type: 'debit', amount: 508, date: '2024-07-10', description: 'Sent' },
+            { type: 'credit', amount: 200, date: '2024-07-09', description: 'Freelance Work' },
+            { type: 'debit', amount: 705, date: '2024-07-08', description: 'Utility Bill' },
+            { type: 'credit', amount: 100, date: '2024-07-11', description: 'Salary' },
+            { type: 'debit', amount: 5000, date: '2024-07-10', description: 'Trade' },
+            { type: 'credit', amount: 2005, date: '2024-07-09', description: 'Work' },
+            { type: 'debit', amount: 750, date: '2024-07-08', description: 'Light Bill' },
+        ];
+
+        transactions.forEach(function(transaction) {
+            var transactionItem = document.createElement('div');
+            transactionItem.classList.add('transaction-item', transaction.type);
+            transactionItem.innerHTML = `
+                <span class="transaction-date">${transaction.date}</span>
+                <span class="transaction-description">${transaction.description}</span>
+                <span class="transaction-amount">${transaction.type === 'credit' ? '+' : '-'}$${transaction.amount}</span>
+            `;
+            transactionList.appendChild(transactionItem);
+        });
+        let notificationCount = 0;
+
+      
+
+function updateNotificationCount(count) {
+    notificationCount += count;
+    const notificationCountElement = document.getElementById('notificationCount');
+    notificationCountElement.textContent = notificationCount;
+    notificationCountElement.style.display = notificationCount > 0 ? 'block' : 'none';
+}
+
+
+async function fetchNews() {
+    const apiKey = 'a60ee6ba0e7845cca91a2aa020ca7dcb'; 
+    try {
+        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`);
+        const data = await response.json();
+        const newArticles = data.articles.filter(article => {
+            const articleTime = new Date(article.publishedAt);
+            const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000);
+            return articleTime > sixHoursAgo;
+        });
+
+        const newCount = newArticles.length;
+        if (newCount > 0) {
+            updateNotificationCount(newCount);
+        }
+    } catch (error) {
+        console.error('Error fetching news:', error);
+    }
+}
+
+setInterval(fetchNews, 20000);
+fetchNews();
+
+setInterval(fetchNews, 20000);
+fetchNews();
+
+document.getElementById('toggle-container').addEventListener('click', function (e) {
+    e.preventDefault();
+    const container = document.getElementById('sliding-container');
+    container.classList.toggle('active');
+});
+
+// Add event listeners for buttons
+document.getElementById('button1').addEventListener('click', function() {
+    // Action for Button 1
+});
+
+document.getElementById('button2').addEventListener('click', function() {
+    // Action for Button 2
+});
+
+document.getElementById('button3').addEventListener('click', function() {
+    // Action for Button 3
+});
+
+
+
+    </script>
+</body>
+</html>

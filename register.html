@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="form-container">
+            <div class="z-payee">
+                <h2><i class="fas fa-coins" style="color: gold;"></i> Z-payee</h2>
+            </div>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" placeholder="Last Name" required>
+                <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <div class="button-container">
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var email = document.getElementById('email').value;
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var phoneNumber = document.getElementById('phoneNumber').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            if (localStorage.getItem(email)) {
+                alert('Email already registered!');
+            } else {
+                var userData = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    phoneNumber: phoneNumber,
+                    password: password
+                };
+
+                localStorage.setItem(email, JSON.stringify(userData));localStorage.setItem(email, JSON.stringify(userData));
+
+                localStorage.setItem('username', firstName);
+
+                alert('Registration successful!');
+                window.location.href = 'dashboard.html';
+            }
+        });
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    var enteredUsername = document.getElementById('registerUsername').value;
+    var enteredEmail = document.getElementById('registerEmail').value;
+    var enteredPassword = document.getElementById('registerPassword').value;
+
+    
+    localStorage.setItem(enteredEmail, enteredPassword); 
+    localStorage.setItem('username', enteredUsername); 
+
+    alert('Registration successful! You can now log in.');
+});
+
+    </script>
+</body>
+</html>

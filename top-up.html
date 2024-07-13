@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up</title>
+    <link rel="stylesheet" href="top-up.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Top Up Your Account</h1>
+    </header>
+
+    <div class="top-up-container">
+        <button class="top-up-button" id="getAccountNumberButton">Get Account Number</button>
+    </div>
+
+    <script>
+        document.getElementById('getAccountNumberButton').addEventListener('click', function() {
+            window.location.href = 'account-number.html';
+        });
+    </script>
+</body>
+</html>
